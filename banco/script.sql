@@ -52,3 +52,5 @@ inner join post p on u.usuario = p.usuario
 inner join postTags t on p.id = t.idPost
 inner join comment c on p.id = c.idPost
 inner join answerComment a on c.idComment = a.idComment;
+
+INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', '1234')
