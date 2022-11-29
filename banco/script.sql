@@ -48,18 +48,16 @@ create table answerComment(
     foreign key (idComment) references comment(idComment)
 );
 
-create view vw_PostSimple as
-select u.usuario as usuario,p.duvida as postDuvida, p.data as dataPost, t.tag as tag, c.usuario as usuarioComment, c.resposta as resposta, c.data as dataComment from users u 
+create view vw_Post as
+select u.usuario as usuario,p.id as idPost, p.duvida as postDuvida, p.data as dataPost, t.tag as tag,c.idComment as idComment, c.usuario as usuarioComment, c.resposta as resposta, c.data as dataComment from users u 
 inner join post p on u.usuario = p.usuario
 inner join postTags t on p.id = t.idPost
 inner join comment c on p.id = c.idPost;
 
-create view vw_Posts as
-select u.usuario as usuario,p.duvida as postDuvida, p.data as dataPost, t.tag as tag, c.usuario as usuarioComment, c.resposta as resposta, c.data as dataComment, a.idAnswer as idAnswer, a.usuario as usuarioAnswer, a.resposta as respostaAnswer, a.data as dataAnswer from users u 
-inner join post p on u.usuario = p.usuario
-inner join postTags t on p.id = t.idPost
-inner join comment c on p.id = c.idPost
+create view vw_Comment as
+select c.idComment as idComment,a.idAnswer as idAnswer, a.usuario as usuarioComment, a.resposta as resposta, a.data as dataComment from comment c 
 inner join answerComment a on c.idComment = a.idComment;
+
 
 INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', '1234');
 INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', '4321');
@@ -75,5 +73,6 @@ INSERT INTO comment VALUES (default, 1, "Chama no zap", "Sanzappa", "2022/11/28"
 INSERT INTO comment VALUES (default, 1, "Não sei", "Sanzappa", "2022/11/28");
 
 INSERT INTO answerComment VALUES (default, 1, "Procura no gogogoglo", "Sanzappa", "2022/11/29");
+INSERT INTO answerComment VALUES (default, 3, "Num sei meu, c é Pichurocu", "Sanzappa", "2022/11/29");
 
-SELECT * FROM vw_posts;
+SELECT * FROM vw_Post;

@@ -56,13 +56,13 @@ const listarPost = (req, res) => {
     con.query(Item.toReadPost(req.params), (err, result) => {
         if (err == null) {
             let post = new Posts(result[0].usuario, result[0].postDuvida, result[0].dataPost)
-            console.log("opa")
-            con.query(`SELECT * FROM vw_posts WHERE usuario = '${result[0].usuario}'`, (errP, resultP) => {
+            con.query(`SELECT * FROM vw_Post WHERE idPost = '${result[0].idPost}'`, (errP, resultP) => {
                 if (errP == null) {
+                    console.log(resultP)
                     resultP.forEach((re, indice) => {
                         console.log(re)
                         let comment = new Comments(re.usuarioComment, re.resposta, re.dataComment)
-                        con.query(`SELECT * FROM answercomment WHERE idAnswer = ${re.idAnswer}`, (errC, resultC) => {
+                        con.query(`SELECT * FROM vw_Comment WHERE idComment = ${re.idComment}`, (errC, resultC) => {
                             if (errC == null) {
                                 comment.addAnswer(resultC[0])
                                 post.addComments(comment)

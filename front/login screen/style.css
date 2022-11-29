@@ -58,7 +58,7 @@ header {
     width: 320px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 #signUp {
@@ -72,7 +72,7 @@ header {
     transition: background-Color .6s, color .4s;
 }
 
-#signUp:hover{
+#signUp:hover {
     background-color: #ffffff;
     color: #0052CC;
 }
@@ -87,15 +87,16 @@ header {
     transition: background-Color .6s;
 }
 
-#signIn:hover{
+#signIn:hover {
     background-color: #ffffff00;
 }
 
 #ondas {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    height: 500px;
+    top: 12vh;
+    left: 23vw;
+    height: 85%;
+    z-index: -1;
 }
 
 main {
@@ -103,85 +104,82 @@ main {
     width: 100vw;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+}
+
+.register, .Logn {
+    height: 600px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.register {
+    background: linear-gradient(222.21deg, #182E50 -5.9%, #111620 64.72%);
+}
+
+.Logn {
+    background: linear-gradient(143.89deg, #182E50 -1.64%, #111620 72.78%);
+}
+
+.title{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    font-size: 40pt;
+    color: #fff;
 }
 
 .info {
-    height: 500px;
-    width: 750px;
-    margin-top: -200px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-direction: column;
+    justify-content: space-around;
+    height: 300px;
+    width: 100%;
 }
 
-.descricao {
-    height: 50%;
+.user, .pass{
     width: 100%;
     display: flex;
     justify-content: space-around;
-    flex-direction: column;
     align-items: center;
 }
 
-.descricao>span {
-    color: #fff;
-    font-size: 50pt;
+.user>input, .pass>input{
+    width: 150px;
+    height: 30px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    color: #9c9c9c;
+    padding-left: 10px;
 }
 
-.desRet {
-    height: 80px;
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(93.44deg, rgba(255, 255, 255, 0.56) 20.23%, rgba(15, 21, 83, 0) 70.49%, rgba(51, 83, 79, 0.0845833) 88.15%);
-    border-radius: 5px;
-}
-
-#desFlo {
-    font-size: 50pt;
-    background: linear-gradient(96.29deg, #0081C9 15.15%, #FFFFFF 96%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-}
-
-.duvida {
-    height: 50%;
+.btn {
+    height: 90px;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.duvida>input {
-    height: 80px;
-    width: 750px;
-    background-color: #171E25;
-    border-radius: 50px;
-    position: absolute;
-    padding-left: 40px;
-    font-size: 20pt;
-    color: #3D4650;
-}
-
-::placeholder {
-    color: #3D4650;
-}
-
-#buscar {
-    height: 60px;
+.btn>button{
+    height: 50px;
     width: 200px;
-    background-color: #0052CC;
-    position: relative;
-    left: 220px;
+    background: none;
+    border: 2px solid #fff;
     border-radius: 50px;
-    border: none;
+    color: #fff;
+    font-weight: 900;
+    transition: border-color .5s, color .5s;
 }
 
-#lupa {
-    height: 40px;
+.btn>button:hover {
+    border-color: #0052CC;
+    color: #0052CC;
 }
