@@ -14,9 +14,9 @@ create table tags(
 
 create table post( 
 	id integer primary key auto_increment,
-	titulo varchar(100) not null,
 	duvida varchar(500) not null,
     usuario varchar(20) not null,
+    data date not null,
     foreign key (usuario) references users(usuario)
 );
 
@@ -29,28 +29,51 @@ create table postTags(
 );
 
 create table comment(
-    idComment integer primary key not null,
+    idComment integer primary key auto_increment,
 	idPost integer not null,
 	resposta varchar(500) not null,
     usuario varchar(20) not null,
+    data date not null,
     foreign key (usuario) references users(usuario),
     foreign key (idPost) references post(id)
 );
 
 create table answerComment(
-    idAnswer integer primary key not null,
+    idAnswer integer primary key auto_increment,
     idComment integer not null,
 	resposta varchar(500) not null,
     usuario varchar(20) not null,
+    data date not null,
     foreign key (usuario) references users(usuario),
     foreign key (idComment) references comment(idComment)
 );
 
+create view vw_PostSimple as
+select u.usuario as usuario,p.duvida as postDuvida, p.data as dataPost, t.tag as tag, c.usuario as usuarioComment, c.resposta as resposta, c.data as dataComment from users u 
+inner join post p on u.usuario = p.usuario
+inner join postTags t on p.id = t.idPost
+inner join comment c on p.id = c.idPost;
+
 create view vw_Posts as
-select u.usuario as usuario, p.titulo as tituloPost, t.tag as tag, c.resposta as resposta, c.usuario as usuarioComment, a.resposta as respostaAnswer, a.usuario as usuarioAnswer from users u 
+select u.usuario as usuario,p.duvida as postDuvida, p.data as dataPost, t.tag as tag, c.usuario as usuarioComment, c.resposta as resposta, c.data as dataComment, a.idAnswer as idAnswer, a.usuario as usuarioAnswer, a.resposta as respostaAnswer, a.data as dataAnswer from users u 
 inner join post p on u.usuario = p.usuario
 inner join postTags t on p.id = t.idPost
 inner join comment c on p.id = c.idPost
 inner join answerComment a on c.idComment = a.idComment;
 
-INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', '1234')
+INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', '1234');
+INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', '4321');
+
+INSERT INTO tags VALUES ('javascript');
+
+INSERT INTO post VALUES (default, "Como usar fetch?", "Felipe_Gostoso", "2022/11/27");
+
+INSERT INTO postTags VALUES (default, "javascript", 1);
+
+INSERT INTO comment VALUES (default, 1, "Procura no gogogoglo", "Sanzappa", "2022/11/28");
+INSERT INTO comment VALUES (default, 1, "Chama no zap", "Sanzappa", "2022/11/28");
+INSERT INTO comment VALUES (default, 1, "Não sei", "Sanzappa", "2022/11/28");
+
+INSERT INTO answerComment VALUES (default, 1, "Procura no gogogoglo", "Sanzappa", "2022/11/29");
+
+SELECT * FROM vw_posts;

@@ -62,6 +62,7 @@ header {
 }
 
 #signUp {
+    position: relative;
     height: 40px;
     width: 140px;
     background: none;
@@ -163,7 +164,7 @@ main {
 #buscar {
     height: 60px;
     width: 200px;
-    background-color:#0052CC;
+    background-color: #0052CC;
     position: relative;
     left: 220px;
     border-radius: 50px;
