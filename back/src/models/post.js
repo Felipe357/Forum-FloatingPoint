@@ -3,7 +3,7 @@ const toCreatePost = (model) => {
 }
 
 const toReadPost = (model) => {
-    return `SELECT * FROM vw_Post where usuario = '${model.usuario}'`
+    return `SELECT * FROM vw_Post where idPost = ${model.idPost}`
 }
 
 module.exports = {

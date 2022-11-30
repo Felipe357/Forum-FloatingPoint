@@ -61,22 +61,6 @@ header {
     justify-content: flex-end;
 }
 
-#signUp {
-    position: relative;
-    height: 40px;
-    width: 140px;
-    background-color: rgba(255, 255, 255, 0);
-    border: 2px solid #FFFFFF;
-    border-radius: 20px;
-    color: #fff;
-    transition: background-Color .6s, color .4s;
-}
-
-#signUp:hover{
-    background-color: #ffffff;
-    color: #0052CC;
-}
-
 #signIn {
     height: 40px;
     width: 140px;
