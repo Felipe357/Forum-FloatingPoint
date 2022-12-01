@@ -25,7 +25,7 @@ create table postTags(
     tag varchar(50) not null,
     idPost integer not null,
     foreign key (tag) references tags(tag),
-    foreign key (idPost) references post(id)
+    foreign key (idPost) references post(id) ON DELETE CASCADE
 );
 
 create table comment(
@@ -35,7 +35,7 @@ create table comment(
     usuario varchar(20) not null,
     data date not null,
     foreign key (usuario) references users(usuario),
-    foreign key (idPost) references post(id)
+    foreign key (idPost) references post(id) ON DELETE CASCADE
 );
 
 create table answerComment(
@@ -45,7 +45,7 @@ create table answerComment(
     usuario varchar(20) not null,
     data date not null,
     foreign key (usuario) references users(usuario),
-    foreign key (idComment) references comment(idComment)
+    foreign key (idComment) references comment(idComment) ON DELETE CASCADE
 );
 
 create view vw_Post as

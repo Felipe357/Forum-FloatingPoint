@@ -6,6 +6,10 @@ const toCreatePostTag = (model) => {
     return `INSERT INTO postTags VALUES (default, '${model.tag}', '${model.idPost}');`;
 }
 
+const toDeletePost = (model) => {
+    return `DELETE FROM post WHERE id = ${model.id}`;
+}
+
 const toReadAllPost = () => {
     return 'SELECT * FROM post ORDER BY id desc'
 }
@@ -18,5 +22,6 @@ module.exports = {
     toCreatePost,
     toReadPost,
     toReadAllPost,
-    toCreatePostTag
+    toCreatePostTag,
+    toDeletePost
 }

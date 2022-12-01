@@ -107,9 +107,22 @@ const listarPost = (req, res) => {
     })
 }
 
+const deletarPost = (req, res) => {
+    con.query(Item.toDeletePost(req.body), (err, result) => {
+        if (err == null)
+            if (result.affectedRows > 0)
+                res.status(204).end();
+            else
+                res.status(404).end();
+        else
+            res.status(400).json(err).end();
+    });
+}
+
 module.exports = {
     cadastrarPost,
     cadastrarPostTag,
     listarPost,
-    listarTodos
+    listarTodos,
+    deletarPost
 }

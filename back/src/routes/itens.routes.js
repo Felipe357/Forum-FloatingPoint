@@ -13,6 +13,7 @@ router.post("/forum/cadastrarPost", post.cadastrarPost)
 router.get("/forum/posts", post.listarTodos)
 router.post("/forum/postsTag", post.cadastrarPostTag)
 router.get("/forum/post/:idPost", post.listarPost)
+router.delete("/forum/posts", post.deletarPost)
 
 router.post("/forum/comment", comment.cadastrarComentarios)
 router.post("/forum/answerComment", comment.cadastrarRespostaComentario)
