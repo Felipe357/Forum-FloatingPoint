@@ -20,7 +20,8 @@ class Posts {
 
 class Comments {
 
-    constructor(usuarioComment, resposta, dataComment) {
+    constructor(idComment, usuarioComment, resposta, dataComment) {
+        this.idComment = idComment
         this.usuarioComment = usuarioComment
         this.resposta = resposta
         this.dataComment = dataComment
@@ -33,9 +34,31 @@ class Comments {
     }
 
 }
+
+const listarTodos = (req, res) => {
+    con.query(Item.toReadAllPost(), (err, result) => {
+        if (err == null) {
+            res.status(201).json(result).end();
+        } else {
+            res.status(500).json(err).end();
+        }
+    })
+}
  
 const cadastrarPost = (req, res) => {
     con.query(Item.toCreatePost(req.body), (err, result) => {
+        if (err == null)
+            res.status(201).end();
+        else
+            if (err.sqlState == 23000)
+                res.status(406).json(err).end();
+            else
+                res.status(500).json(err).end();
+    });
+}
+
+const cadastrarPostTag = (req, res) => {
+    con.query(Item.toCreatePostTag(req.body), (err, result) => {
         if (err == null)
             res.status(201).end();
         else
@@ -59,7 +82,7 @@ const listarPost = (req, res) => {
                 con.query(`SELECT * FROM vw_Post WHERE idPost = '${result[0].idPost}'`, (errP, resultP) => {
                     if (errP == null) {
                         resultP.forEach((re, indice) => {
-                            let comment = new Comments(re.usuarioComment, re.resposta, re.dataComment)
+                            let comment = new Comments(re.idComment, re.usuarioComment, re.resposta, re.dataComment)
                             con.query(`SELECT * FROM vw_Comment WHERE idComment = ${re.idComment}`, (errC, resultC) => {
                                 if (errC == null) {
                                     comment.addAnswer(resultC[0])
@@ -86,5 +109,7 @@ const listarPost = (req, res) => {
 
 module.exports = {
     cadastrarPost,
-    listarPost
+    cadastrarPostTag,
+    listarPost,
+    listarTodos
 }
