@@ -1,5 +1,5 @@
 const toCreateUsers = (model) => {
-    return `INSERT INTO users VALUES ('${model.usuario}','${model.nome}','${model.senha}')`;
+    return `INSERT INTO users VALUES ('${model.usuario}','${model.nome}','${model.senha}', ${model.role})`;
 }
 
 const toValidateUsers = (model) => {
