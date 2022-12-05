@@ -80,6 +80,7 @@ header {
     bottom: 0px;
     left: 0px;
     height: 500px;
+    z-index: -1;
 }
 
 main {

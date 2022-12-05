@@ -6,7 +6,17 @@ const toCreateAnswerComment = (model) => {
     return `INSERT INTO answerComment VALUES (default, ${model.idComment}, '${model.resposta}', '${model.usuario}', '${model.data}');`;
 }
 
+const toDeleteComment = (model) => {
+    return `DELETE FROM comment WHERE idComment = ${model.id}`;
+}
+
+const toDeleteAnswerComment = (model) => {
+    return `DELETE FROM answerComment WHERE idAnswer = ${model.id}`;
+}
+
 module.exports = {
     toCreateComment,
-    toCreateAnswerComment
+    toCreateAnswerComment,
+    toDeleteComment,
+    toDeleteAnswerComment
 }

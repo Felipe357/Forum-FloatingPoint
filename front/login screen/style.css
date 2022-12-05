@@ -94,7 +94,7 @@ main {
     justify-content: space-around;
 }
 
-.register, .Logn {
+.register, .Login {
     height: 600px;
     width: 400px;
     display: flex;
@@ -108,7 +108,7 @@ main {
     background: linear-gradient(222.21deg, #182E50 -5.9%, #111620 64.72%);
 }
 
-.Logn {
+.Login {
     background: linear-gradient(143.89deg, #182E50 -1.64%, #111620 72.78%);
 }
 

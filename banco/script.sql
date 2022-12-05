@@ -60,8 +60,8 @@ select c.idComment as idComment,a.idAnswer as idAnswer, a.usuario as usuarioComm
 inner join answerComment a on c.idComment = a.idComment;
 
 
-INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', '1234', 0);
-INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', '4321', 1);
+INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', 'MTIzNA==', 0);
+INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', 'NDMyMQ==', 1);
 
 INSERT INTO tags VALUES ('javascript');
 

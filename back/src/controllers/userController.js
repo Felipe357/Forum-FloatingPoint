@@ -10,7 +10,7 @@ const cadastrarUsuario = (req, res) => {
             res.status(201).json(req.body).end();
         else
             if (err.sqlState == 23000)
-                res.status(406).json(err).end();
+                res.status(406).json("Usuario ja cadastrado").end();
             else
                 res.status(500).json(err).end();
     });
