@@ -98,6 +98,10 @@ main {
     letter-spacing: 2px;
 }
 
+#buscaTag:focus{
+    outline: none;
+}
+
 #buscaTag::placeholder {
     color: #000;
     font-weight: 600;
@@ -126,6 +130,8 @@ main {
     width: 82%;
     background-color: #122E41;
     padding: 30px 60px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 .post {
@@ -134,16 +140,84 @@ main {
     width: 800px;
     background-color: #064365;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 #tri {
     position: absolute;
     right: 12px;
-    bottom: 8px;
+    top: 8px;
     background: none;
     border: none;
     height: 20px;
     transition: .5s;
+    z-index: 2;
+}
+
+.info {
+    color: #fff;
+    max-width: 75%;
+    height: auto;
+    font-size: 20pt;
+    font-weight: 600;
+    padding: 10px;
+    z-index: 2;
+}
+
+.postTags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    width: auto;
+    padding: 10px;
+}
+
+.postTag {
+    height: 35px;
+    width: 100px;
+    background-color: #62CBEC;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.dataNome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 220px;
+    height: 60px;
+    font-size: medium;
+    font-weight: 700;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    z-index: 2;
+}
+
+.comment{
+    height: 250px;
+    width: 610px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 0px 5px 5px 0px;
+    transition: 0.7s;
+}
+
+.model {
+    visibility: hidden;
+    display: none;
 }
 
 /* width */

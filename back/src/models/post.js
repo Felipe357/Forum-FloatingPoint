@@ -18,10 +18,15 @@ const toReadPost = (model) => {
     return `SELECT * FROM vw_Post where idPost = ${model.idPost}`
 }
 
+const toReadTag = (model) => {
+    return `SELECT * FROM postTags where idPost = ${model.idPost}`
+}
+
 module.exports = {
     toCreatePost,
     toReadPost,
     toReadAllPost,
     toCreatePostTag,
-    toDeletePost
+    toDeletePost,
+    toReadTag
 }

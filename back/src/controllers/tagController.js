@@ -13,6 +13,20 @@ const cadastrarTag = (req, res) => {
     });
 }
 
+const listarTags = (req, res) => {
+    con.query(Item.toReadTag(), (err, result) => {
+        if (err == null)
+            res.status(201).json(result).end();
+        else
+            if (err.sqlState == 23000)
+                res.status(406).json(err).end();
+            else
+                res.status(500).json(err).end();
+    });
+}
+
+
 module.exports = {
-    cadastrarTag
+    cadastrarTag,
+    listarTags
 }

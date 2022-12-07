@@ -64,6 +64,7 @@ INSERT INTO users VALUES ('Felipe_Gostoso', 'Felipe Serra', 'MTIzNA==', 0);
 INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', 'NDMyMQ==', 1);
 
 INSERT INTO tags VALUES ('javascript');
+INSERT INTO tags VALUES ('java');
 
 INSERT INTO post VALUES (default, "Como usar fetch?", "Felipe_Gostoso", "2022/11/27");
 

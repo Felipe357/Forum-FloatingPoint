@@ -13,6 +13,7 @@ router.post("/forum/cadastrarUser", user.cadastrarUsuario)
 router.post("/forum/cadastrarPost", post.cadastrarPost)
 router.get("/forum/posts", post.listarTodos)
 router.post("/forum/postsTag", post.cadastrarPostTag)
+router.post("/forum/readTag", post.listarTag)
 router.get("/forum/post/:idPost", post.listarPost)
 router.delete("/forum/posts", middle.validaAcesso, post.deletarPost)
 
@@ -22,5 +23,6 @@ router.post("/forum/answerComment", comment.cadastrarRespostaComentario)
 router.delete("/forum/answerComment/delete", comment.deletarAnswerComment)
 
 router.post("/forum/tag", tag.cadastrarTag)
+router.get("/forum/tag", tag.listarTags)
 
 module.exports = router

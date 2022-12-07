@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body onload="carregarPost(), carregarTags()">
     <header>
         <img src="./docs/logo2.png" alt="Logo FloatingPoint" id="logo">
         <div class="titulo">
@@ -23,16 +23,24 @@
 
     <main>
         <div class="tags">
-            <input type="text" id="buscaTag" placeholder="Search">
+            <input type="text" id="buscaTag" placeholder="Search" onkeyup="filtrarTags()">
             <div class="tag">
-                <span>Java</span>
-                <span>HTML</span>
-                <span>Css</span>
             </div>
         </div>
         <div class="posts">
-            <div class="post" onclick="showComment()">
+            <div class="post " id="teste" onclick="showComment(this)">
                 <img src="./docs/triangulo.png" alt="triangulo" id="tri">
+                <div class="info">
+                    <span id="pergunta"></span>
+                </div>
+                <div class="postTags">
+                    <div class="postTag model"><span></span></div>
+                </div>
+                <div class="dataNome">
+                    <span id="nome"></span>
+                    <span id="data"></span>
+                </div>
+                <div class="comment"></div>
             </div>
         </div>
     </main>
