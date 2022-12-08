@@ -1,10 +1,19 @@
 function showComment(e) {
+
     var tri = document.getElementById(e.id).querySelector("#tri")
     tri.style.transform = "rotate(90deg)"
     document.getElementById(e.id).setAttribute("onclick", "saveComment(this)")
 
-    var comment = document.querySelector(".comment")
+    var v = document.querySelectorAll(".post")
+
+    v.forEach((ve) => {
+        console.log(ve.onclick)
+    })
+
+    var comment = document.getElementById(e.id).querySelector(".comment")
     comment.style.right = "-600px"
+    comment.querySelector(".infoComment").style.opacity = "1"
+    
 }
 
 function saveComment(e) {
@@ -12,8 +21,10 @@ function saveComment(e) {
     tri.style.transform = "rotate(0deg)"
     document.getElementById(e.id).setAttribute("onclick", "showComment(this)")
 
-    var comment = document.querySelector(".comment")
+    var comment = document.getElementById(e.id).querySelector(".comment")
     comment.style.right = "0px"
+    comment.querySelector(".infoComment").style.opacity = "0"
+    
 }
 
 function carregarPost() {
@@ -31,6 +42,7 @@ function carregarPost() {
                 var post = document.querySelector(".post").cloneNode(true)
                 post.classList.remove("model")
                 post.id = e.id
+                post.querySelector(".comment").id = e.id
                 post.querySelector("#pergunta").innerHTML = e.duvida
                 post.querySelector("#nome").innerHTML = e.usuario
                 post.querySelector("#data").innerHTML = dataFormatada

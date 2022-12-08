@@ -141,6 +141,8 @@ main {
     background-color: #064365;
     border-radius: 5px;
     margin-bottom: 20px;
+    z-index: 4;
+    
 }
 
 #tri {
@@ -151,7 +153,6 @@ main {
     border: none;
     height: 20px;
     transition: .5s;
-    z-index: 2;
 }
 
 .info {
@@ -161,7 +162,10 @@ main {
     font-size: 20pt;
     font-weight: 600;
     padding: 10px;
-    z-index: 2;
+    position: relative;
+}
+
+#pergunta{
 }
 
 .postTags {
@@ -201,18 +205,92 @@ main {
     position: absolute;
     bottom: 0;
     right: 20px;
-    z-index: 2;
 }
 
 .comment{
-    height: 250px;
+    height: 100%;
     width: 610px;
-    background-color: rgb(255, 255, 255);
+    background-color: #0b354b00;
     position: absolute;
     right: 0;
     top: 0;
     border-radius: 0px 5px 5px 0px;
-    transition: 0.7s;
+    transition: right 0.8s;
+    display: flex;
+    justify-content: flex-end;
+    z-index: -1;
+}
+
+.infoComment {
+    height: 330%;
+    width: 90%;
+    background-color: #064365;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    transition: .6s;
+    opacity: 0;
+}
+
+.dadosComment {
+    border-left: 2px solid white;
+    height: auto;
+    width: 80%;
+    padding-left: 10px;
+    margin-bottom: 30px;
+}
+
+.userComment {
+    color: #cfcfcf;
+    font-size: medium;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.respostaComment {
+    color: #fff;
+    font-weight: 800;
+    max-width: 90%;
+    margin: 20px;
+    font-size: large;
+}
+
+.dataComment {
+    color: #bbc0c5;
+    font-weight: 700;
+    font-size: medium;
+}
+
+.answerComment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-left: 2px solid #adacac;
+    margin: 0px 0px 20px 45px;
+    padding-left: 10px;
+}
+
+.userAnswer {
+    color: #cfcfcf;
+    font-size: small;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.respostaAnswer {
+    color: #fff;
+    font-weight: 800;
+    max-width: 90%;
+    margin: 20px;
+    font-size: medium;
+}
+
+.dataAnswer {
+    color: #bbc0c5;
+    font-weight: 700;
+    font-size: small;
 }
 
 .model {
