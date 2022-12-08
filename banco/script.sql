@@ -65,6 +65,16 @@ INSERT INTO users VALUES ('Sanzappa', 'Santiago Conti', 'NDMyMQ==', 1);
 
 INSERT INTO tags VALUES ('javascript');
 INSERT INTO tags VALUES ('java');
+INSERT INTO tags VALUES ('HTML');
+INSERT INTO tags VALUES ('CSS');
+INSERT INTO tags VALUES ('C');
+INSERT INTO tags VALUES ('Kotlin');
+INSERT INTO tags VALUES ('Shell');
+INSERT INTO tags VALUES ('PHP');
+INSERT INTO tags VALUES ('C#');
+INSERT INTO tags VALUES ('C++');
+INSERT INTO tags VALUES ('Python');
+INSERT INTO tags VALUES ('SAS');
 
 INSERT INTO post VALUES (default, "Como usar fetch?", "Felipe_Gostoso", "2022/11/27");
 

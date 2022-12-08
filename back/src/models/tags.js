@@ -1,5 +1,5 @@
 const toCreateTag = (model) => {
-    return `INSERT INTO tag VALUES ('${model.tag}');`;
+    return `INSERT INTO tags VALUES ('${model.tag}');`;
 }
 
 const toReadTag = () => {

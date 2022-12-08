@@ -1,30 +1,51 @@
+var id
+
 function showComment(e) {
 
-    var tri = document.getElementById(e.id).querySelector("#tri")
-    tri.style.transform = "rotate(90deg)"
-    document.getElementById(e.id).setAttribute("onclick", "saveComment(this)")
+    var v = document.querySelector(".aberto")
 
-    var v = document.querySelectorAll(".post")
+    if (v !== null) {
+         saveComment(id)
+         setTimeout(() => {
+            showComment(e)
+         }, 1000)
+    } else {
+        id = e
 
-    v.forEach((ve) => {
-        console.log(ve.onclick)
-    })
+        var tri = document.getElementById(e.id).querySelector("#tri")
+        tri.style.transform = "rotate(90deg)"
+        document.getElementById(e.id).setAttribute("onclick", "saveComment(this)")
 
-    var comment = document.getElementById(e.id).querySelector(".comment")
-    comment.style.right = "-600px"
-    comment.querySelector(".infoComment").style.opacity = "1"
-    
+        var comment = document.getElementById(e.id).querySelector(".comment")
+        comment.style.right = "-600px"
+        comment.querySelector(".infoComment").style.opacity = "1"
+
+        setTimeout(() => {
+            carregaComment(e.id)
+        }, 700)
+    }
+
+
+
 }
 
 function saveComment(e) {
-    var tri = document.getElementById(e.id).querySelector("#tri")
-    tri.style.transform = "rotate(0deg)"
-    document.getElementById(e.id).setAttribute("onclick", "showComment(this)")
 
-    var comment = document.getElementById(e.id).querySelector(".comment")
-    comment.style.right = "0px"
-    comment.querySelector(".infoComment").style.opacity = "0"
-    
+    var v = document.querySelector(".aberto")
+    v.classList.remove("aberto")
+
+    esconderComment(e.id)
+
+    setTimeout(() => {
+        var tri = document.getElementById(e.id).querySelector("#tri")
+        tri.style.transform = "rotate(0deg)"
+        document.getElementById(e.id).setAttribute("onclick", "showComment(this)")
+
+        var comment = document.getElementById(e.id).querySelector(".comment")
+        comment.style.right = "0px"
+        comment.querySelector(".infoComment").style.opacity = "0"
+    }, 900)
+
 }
 
 function carregarPost() {
@@ -34,7 +55,6 @@ function carregarPost() {
         .then(response => response.json())
         .then(data => {
             data.forEach(e => {
-                console.log(e)
 
                 var date = new Date(e.data)
                 let dataFormatada = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
@@ -60,7 +80,7 @@ function carregarPost() {
                     .then(response => response.json())
                     .then(t => {
                         t.forEach(tag => {
-                            console.log(tag)
+                            
                             var ta = post.querySelector(".postTag").cloneNode(true)
                             ta.classList.remove("model")
                             ta.querySelector("span").innerHTML = tag.tag
@@ -104,4 +124,25 @@ function filtrarTags() {
             x[i].style.display = "flex";
         }
     }
+}
+
+function carregaComment(e) {
+
+    var info = document.getElementById(e).querySelector(".infoComment")
+
+    info.classList.add("aberto")
+
+    var dados = info.querySelectorAll(".dadosComment")
+
+    var ta = dados.length
+
+    info.style.height = ta.toString() + ta.toString() + "0%"
+
+}
+
+function esconderComment(e) {
+
+    var info = document.getElementById(e).querySelector(".infoComment")
+    info.style.height = "100%"
+
 }

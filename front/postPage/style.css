@@ -222,15 +222,15 @@ main {
 }
 
 .infoComment {
-    height: 330%;
+    height: 100%;
     width: 90%;
     background-color: #064365;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    transition: .6s;
+    padding: 10px;
+    transition: opacity .7s, height 1s ease-in-out;
     opacity: 0;
 }
 
@@ -296,6 +296,14 @@ main {
 .model {
     visibility: hidden;
     display: none;
+}
+
+.mascara {
+    background-color: #122E41;
+    height: 200%;
+    width: 100%;
+    position: absolute;
+    top: 100%;
 }
 
 /* width */
