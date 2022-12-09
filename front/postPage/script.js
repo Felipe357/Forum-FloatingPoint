@@ -5,12 +5,18 @@ function showComment(e) {
     var v = document.querySelector(".aberto")
 
     if (v !== null) {
-         saveComment(id)
-         setTimeout(() => {
+        saveComment(id)
+        setTimeout(() => {
             showComment(e)
-         }, 1000)
+        }, 1000)
     } else {
         id = e
+
+        var info = document.getElementById(e.id).querySelector(".infoComment").querySelectorAll(".dadosComment")
+
+        var dados = document.getElementById(e.id).querySelector(".mascara")
+
+        dados.style.height = info.length.toString() + info.length.toString() + "0%"
 
         var tri = document.getElementById(e.id).querySelector("#tri")
         tri.style.transform = "rotate(90deg)"
@@ -80,13 +86,56 @@ function carregarPost() {
                     .then(response => response.json())
                     .then(t => {
                         t.forEach(tag => {
-                            
+
                             var ta = post.querySelector(".postTag").cloneNode(true)
                             ta.classList.remove("model")
                             ta.querySelector("span").innerHTML = tag.tag
 
                             post.querySelector(".postTags").appendChild(ta)
                         })
+                    })
+
+                const options3 = { method: 'GET' };
+
+                fetch('http://localhost:5000/forum/post/' + e.id, options3)
+                    .then(response => response.json())
+                    .then(com => {
+
+                        if (com.comments === undefined) {
+                            
+                        } else {
+                            com.comments.forEach((c) => {
+                                var dados = document.querySelector(".dadosComment").cloneNode(true)
+                                dados.classList.remove("model")
+
+                                var d = new Date(c.dataComment)
+                                let df = d.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+
+                                dados.querySelector(".userComment").innerHTML = c.usuarioComment
+                                dados.querySelector(".respostaComment").innerHTML = c.resposta
+                                dados.querySelector(".dataComment").innerHTML = df
+
+                                if (c.answerComments !== undefined) {
+
+                                    var da = new Date(c.answerComments.dataComment)
+                                    let daf = da.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+
+                                    let answer = dados.querySelector(".answerComment")
+                                    answer.classList.remove("model")
+
+                                    answer.querySelector(".userAnswer").innerHTML = c.answerComments.usuarioComment
+                                    answer.querySelector(".respostaAnswer").innerHTML = c.answerComments.resposta
+                                    answer.querySelector(".dataAnswer").innerHTML = daf
+
+                                }
+
+
+
+                                post.querySelector(".infoComment").appendChild(dados)
+                            })
+                        }
+
+
                     })
 
                 document.querySelector(".posts").appendChild(post)
@@ -134,9 +183,17 @@ function carregaComment(e) {
 
     var dados = info.querySelectorAll(".dadosComment")
 
-    var ta = dados.length
+    var ta = 0
 
-    info.style.height = ta.toString() + ta.toString() + "0%"
+    dados.forEach((c, index) => {
+        if (index !== 0) {
+            ta += c.clientHeight
+        }
+    })
+
+    ta += (dados.length - 1) * 30
+
+    info.style.height = ta.toString() + 'px'
 
 }
 
@@ -144,5 +201,11 @@ function esconderComment(e) {
 
     var info = document.getElementById(e).querySelector(".infoComment")
     info.style.height = "100%"
+
+    setTimeout(() => {
+        var dados = document.getElementById(e).querySelector(".mascara")
+
+        dados.style.height = "0px"
+    }, 1500)
 
 }

@@ -300,7 +300,7 @@ main {
 
 .mascara {
     background-color: #122E41;
-    height: 200%;
+    height: 0px;
     width: 100%;
     position: absolute;
     top: 100%;
