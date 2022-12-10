@@ -52,9 +52,27 @@
                             </div>
                             <div class="dataComment"><span>02/12/2022</span></div>
                         </div>
-
+                        <div class="noComment model">
+                            <span>Esta postagem ainda não possui comentário</span>
+                            <span>seja o primeiro!</span>
+                        </div>
+                        <div class="cadComment">
+                            <button id="showModal"
+                                onclick="cadPost(this.parentNode.parentNode.parentNode.parentNode)"><span>Comentar</span></button>
+                        </div>
                         <div class="mascara"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal model">
+            <div class="modal2">
+                <span>Realizar Postagem</span>
+                <div class="cad">
+                    <textarea cols="60" rows="10" maxlength="250" placeholder="Digite aqui sua resposta"></textarea>
+
+                    <button id="enviarPost" onclick="enviarPost()"><span>Postar</span></button>
                 </div>
             </div>
         </div>

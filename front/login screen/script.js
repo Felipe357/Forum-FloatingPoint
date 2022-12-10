@@ -29,7 +29,7 @@ function login() {
             .then(response => {
                 if (response.autoriza === true) {
                     console.log(response)
-                    localStorage.setItem('usuario', [response.token])
+                    localStorage.setItem('user', user)
                     window.location.href = "../postPage/index.html"
                 } else {
                     console.log("Se equivocou né")
@@ -69,6 +69,7 @@ function cadastrar() {
                     if (response === "Usuario ja cadastrado") {
                         console.log(response)
                     } else {
+                        localStorage.setItem('user', user)
                         window.location.href = "../postPage/index.html"
                     }
                 })

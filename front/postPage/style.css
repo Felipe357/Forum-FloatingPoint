@@ -98,7 +98,7 @@ main {
     letter-spacing: 2px;
 }
 
-#buscaTag:focus{
+#buscaTag:focus {
     outline: none;
 }
 
@@ -142,7 +142,11 @@ main {
     border-radius: 5px;
     margin-bottom: 20px;
     z-index: 4;
-    
+}
+
+.post2 {
+    height: auto;
+    width: auto;
 }
 
 #tri {
@@ -163,9 +167,6 @@ main {
     font-weight: 600;
     padding: 10px;
     position: relative;
-}
-
-#pergunta{
 }
 
 .postTags {
@@ -207,7 +208,7 @@ main {
     right: 20px;
 }
 
-.comment{
+.comment {
     height: 100%;
     width: 610px;
     background-color: #0b354b00;
@@ -296,6 +297,109 @@ main {
 .model {
     visibility: hidden;
     display: none;
+}
+
+.noComment {
+    min-height: 0px;
+    max-height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-size: larger;
+    font-weight: bold;
+    color: #bbc0c5;
+}
+
+.cadComment {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cadComment>button {
+    height: 60px;
+    width: 150px;
+    border-radius: 2px;
+    background-color: #023658;
+    border: 2px solid rgb(9, 63, 124);
+    transition: all .6s ease-in-out;
+    font-size: larger;
+    color: #62CBEC;
+}
+
+.cadComment>button:hover {
+    background-color: #05638f;
+    color: #091849;
+}
+
+.modal {
+    height: 88vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #122e417a;
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+
+}
+
+.modal2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 550px;
+    width: 55%;
+    background-color: rgb(25, 82, 109);
+    font-size: 30pt;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 20px;
+}
+
+.cad {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cad>textarea {
+    border: 3px solid rgb(24, 46, 85);
+    background-color: #023658;
+    color: #fff;
+    padding: 15px;
+    font-size: medium;
+    font-weight: 500;
+}
+
+.cad>textarea::placeholder {
+    color: #fff;
+    font-size: medium;
+    font-weight: 500;
+}
+
+.cad>textarea:focus {
+    outline: none;
+}
+
+#enviarPost {
+    background-color: #FFF;
+    border: none;
+    border-radius: 15px;
+    height: 20%;
+    width: 15%;
+    font-size: medium;
+    letter-spacing: 2px;
+    font-weight: 700;
 }
 
 .mascara {

@@ -1,5 +1,8 @@
-var id
+const user = localStorage.getItem('user')
 
+document.querySelector(".user").querySelector("span").innerHTML = user
+
+var id
 function showComment(e) {
 
     var v = document.querySelector(".aberto")
@@ -102,7 +105,7 @@ function carregarPost() {
                     .then(com => {
 
                         if (com.comments === undefined) {
-                            
+                            post.querySelector(".noComment").classList.remove("model")
                         } else {
                             com.comments.forEach((c) => {
                                 var dados = document.querySelector(".dadosComment").cloneNode(true)
@@ -191,9 +194,15 @@ function carregaComment(e) {
         }
     })
 
-    ta += (dados.length - 1) * 30
+    ta += ((dados.length - 1) * 30) + 200
 
-    info.style.height = ta.toString() + 'px'
+
+
+    if (ta !== 0) {
+        info.style.height = ta.toString() + 'px'
+    }
+
+
 
 }
 
@@ -207,5 +216,39 @@ function esconderComment(e) {
 
         dados.style.height = "0px"
     }, 1500)
+
+}
+
+function cadPost(e) {
+
+    document.querySelector(".modal").classList.remove("model")
+}
+
+function enviarPost() {
+
+    var text = document.querySelector(".cad").querySelector("textarea").value
+
+    var at = new Date()
+    var fat = at.getFullYear() + "/" + at.getMonth() + "/" + at.getDay()
+
+    console.log(text);
+
+    if (text.length < 10) {
+        window.alert("Não realiza gracejos em")
+    } else {
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "duvida": text,
+                "user": user,
+                "data": fat
+            })
+        };
+
+        fetch('http://localhost:5000/forum/cadastrarPost', options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+    }
 
 }
