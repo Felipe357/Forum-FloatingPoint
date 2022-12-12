@@ -1,51 +1,109 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Image } from 'react-native';
-import { Button } from 'react-native-web';
+import { StyleSheet, Text, TextInput, View, Image, TextInputBase } from 'react-native';
+import { Button, Picker, TouchableOpacity } from 'react-native-web';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import TagCom from "../components/tagCom";
 
 export default function App() {
 
-  const [poke, setPoke] = useState()
-  const [img, setImg] = useState("")
-  const [type, setType] = useState([])
-  const [nome, setNome] = useState("")
+  const [selectedValue, setSelectedValue] = useState("");
+  const [duvida, setDuvida] = useState("")
+  const [user, setUser] = useState("")
+  const [idPost, setIdPost] = useState()
+
+  const [tag, setTag] = useState([])
 
 
-  useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/" + poke)
-      .then(res => { return res.json() })
-      .then(data => {
-        setNome(data.name)
-        setImg(data.sprites.front_default)
-        setType(data.types)
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('User')
+      const value2 = await AsyncStorage.getItem('PostId')
+      if (value !== null && value2 !== null) {
+        setUser(value)
+        setIdPost(value2)
+      }
+    } catch (e) {
+
+    }
+  }
+
+
+  function carregarTag() {
+    const options = { method: 'GET' };
+
+    fetch('http://localhost:5000/forum/tag', options)
+      .then(response => response.json())
+      .then(resp => {
+        setTag(resp)
       })
-  }, [poke])
+  }
 
+  setTimeout(() => {
+    carregarTag()
+    getData()
+  }, 500)
 
+  function cadastrar() {
+
+    var at = new Date()
+
+    var fat = at.getFullYear() + "/" +(at.getMonth() + 1) + "/" + at.getDate()
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        "duvida": duvida,
+        "user": user,
+        "data": fat
+      })
+    };
+
+    fetch('http://localhost:5000/forum/cadastrarPost', options)
+      .then(response => response.json())
+      .then(response => {
+        if (response !== null) {
+          const options2 = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              "tag": selectedValue,
+              "idPost": idPost
+            })
+          };
+
+          fetch('http://localhost:5000/forum/postsTag', options2)
+            .then(response => response.json())
+            .then(resp => {
+              if (resp !== null) {
+                window.location.reload()
+              }
+            })
+        }
+      })
+  }
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.inp} title="Nome do Pokemon" onChangeText={(val) => { setPoke(val) }} />
-      {
+      <TextInput style={styles.inp} multiline={true} numberOfLines={10} placeholder={"Digite sua dúvida aqui"} onChangeText={(duvida) => { setDuvida(duvida) }} />
+      <Picker
+        selectedValue={selectedValue}
+        style={{ height: 50, width: 150, backgroundColor: "#4287f5", borderColor: "#000", color: "#fff" }}
+        onValueChange={(itemValue) => setSelectedValue(itemValue)}
+      >
 
-        <View style={styles.poke}>
-          <Text>{nome}</Text>
-          <Image
-            style={styles.tinyLogo}
-            source={{
-              uri: img
-            }}
-          />
-          {
-            type.map((e) => {
-              return (
-                <Text>{e.type.name}</Text>
-              )
-            })
-          }
-        </View>
-
-      }
+        {
+          tag.map((e, index) => {
+            return (
+              <TagCom key={index} tag={e.tag} ></TagCom>
+            )
+          })
+        }
+      </Picker>
+      <TouchableOpacity style={styles.btn} onPress={cadastrar}><Text style={styles.btnText}>Registrar</Text></TouchableOpacity>
     </View>
   )
 }
@@ -53,38 +111,34 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#3154a3',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tinyLogo: {
-    resizeMode: 'contain',
-    width: 200,
-    height: 200,
+    justifyContent: "space-around",
+    padding: "150px"
   },
   inp: {
-    height: 30,
-    width: 120,
-    borderColor: "#000",
-    borderBottomWidth: 3,
-    marginBottom: 10
+    backgroundColor: "#1e3568",
+    height: "150px",
+    width: "280px",
+    borderRadius: "10px",
+    color: "#fff",
+    padding: "10px"
   },
-  poke: {
-    height: 400,
-    width: 300,
-    backgroundColor: "#ececec",
+  btn: {
+    height: 60,
+    width: 200,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.46,
-    shadowRadius: 11.14,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#1e3568",
+    marginTop: 20,
+    borderRadius: 5
+  },
+  btnText: {
+    color: "#fff",
+    fontSize: "15pt",
+    fontWeight: "700",
+    letterSpacing: "2px"
+  },
 
-    elevation: 17,
-  }
 });

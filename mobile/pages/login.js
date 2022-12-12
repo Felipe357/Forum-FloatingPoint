@@ -3,6 +3,8 @@ import { Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpa
 import { TextInput } from 'react-native-web';
 import { useState } from 'react';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function telaLogin({ navigation }) {
 
     const img = require("../../front/viewpoint/docs/logo2.png")
@@ -10,6 +12,14 @@ export default function telaLogin({ navigation }) {
     const [usuario, setUsuario] = useState("")
     const [senha, setSenha] = useState("")
     const [at, setAt] = useState(false)
+
+    const storeData = async () => {
+        try {
+          await AsyncStorage.setItem('User', usuario)
+        } catch (e) {
+          // saving error
+        }
+      }
 
     const verificar = () => {
         const options = {
@@ -26,6 +36,7 @@ export default function telaLogin({ navigation }) {
             .then(response => {
                 if (response.autoriza === true) {
                     navigation.navigate("Post")
+                    storeData()
                 }
             })
     }

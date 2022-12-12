@@ -4,6 +4,8 @@ import { TextInput } from 'react-native-web';
 import { useState, useEffect, useMemo } from 'react';
 import { set } from 'react-native-reanimated';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import PostComponent from '../components/postCom'
 
 export default function telaHome() {
@@ -18,11 +20,22 @@ export default function telaHome() {
             .then(resp => {
                 setPosts(resp)
             })
+
+            
     }
 
     setTimeout(() => {
         carregarPost()
+        storeData()
     }, 500)
+
+    const storeData = async () => {
+        try {
+          await AsyncStorage.setItem('PostId', posts.length + 1)
+        } catch (e) {
+          // saving error
+        }
+      }
 
     return (
         <View style={styles.v}>

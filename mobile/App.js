@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Login" component={telaLogin} /> */}
+        <Stack.Screen name="Login" component={telaLogin} />
         <Stack.Screen name="Post" component={telaPost} />
       </Stack.Navigator>
     </NavigationContainer>
