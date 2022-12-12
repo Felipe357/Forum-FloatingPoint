@@ -48,7 +48,7 @@ const listarTodos = (req, res) => {
 const cadastrarPost = (req, res) => {
     con.query(Item.toCreatePost(req.body), (err, result) => {
         if (err == null)
-            res.status(201).end();
+            res.status(201).json(req.body).end();
         else
             if (err.sqlState == 23000)
                 res.status(406).json(err).end();
@@ -60,7 +60,7 @@ const cadastrarPost = (req, res) => {
 const cadastrarPostTag = (req, res) => {
     con.query(Item.toCreatePostTag(req.body), (err, result) => {
         if (err == null)
-            res.status(201).end();
+            res.status(201).json(req.body).end();
         else
             if (err.sqlState == 23000)
                 res.status(406).json(err).end();

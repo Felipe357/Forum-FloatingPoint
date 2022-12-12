@@ -17,6 +17,8 @@
             <span id="poi">Point</span>
         </div>
         <div class="user">
+            <button id="showModal"
+                                onclick="cadPost(this.parentNode.parentNode.parentNode.parentNode)"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt=""></button>
             <span>Felipe_Gostoso</span>
         </div>
     </header>
@@ -25,6 +27,7 @@
         <div class="tags">
             <input type="text" id="buscaTag" placeholder="Search" onkeyup="filtrarTags()">
             <div class="tag">
+                <span onclick="filtrarPost(this)">Todos</span>
             </div>
         </div>
         <div class="posts">
@@ -50,15 +53,18 @@
                                 <div class="respostaAnswer"><span>Muito Obrigado</span></div>
                                 <div class="dataAnswer"><span>05/12/2022</span></div>
                             </div>
+                            <div class="cadAnswer model">
+                                <button id="cadAnswer" onclick="showAnswer()"><span>responder</span></button>
+                            </div>
                             <div class="dataComment"><span>02/12/2022</span></div>
                         </div>
                         <div class="noComment model">
-                            <span>Esta postagem ainda não possui comentário</span>
+                            <span>Está postagem ainda não possui comentário</span>
                             <span>seja o primeiro!</span>
                         </div>
                         <div class="cadComment">
-                            <button id="showModal"
-                                onclick="cadPost(this.parentNode.parentNode.parentNode.parentNode)"><span>Comentar</span></button>
+                            <button id="showComment"
+                                onclick="cadComment(this.parentNode.parentNode.parentNode.parentNode)"><span>Comentar</span></button>
                         </div>
                         <div class="mascara"></div>
                     </div>
@@ -66,13 +72,47 @@
             </div>
         </div>
 
-        <div class="modal model">
+        <div class="modalP model">
             <div class="modal2">
                 <span>Realizar Postagem</span>
                 <div class="cad">
-                    <textarea cols="60" rows="10" maxlength="250" placeholder="Digite aqui sua resposta"></textarea>
+                    <textarea cols="60" rows="10" maxlength="250" placeholder="Digite aqui sua Duvida"></textarea>
 
-                    <button id="enviarPost" onclick="enviarPost()"><span>Postar</span></button>
+                    <div class="modal3">
+                        <select id="tagsPost">
+                            
+                        </select>
+    
+                        <button id="enviarPost" onclick="enviarPost()"><span>Postar</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modalC model">
+            <div class="modal2">
+                <span>Realizar Comentario</span>
+                <div class="cad">
+                    <textarea id="textComment" cols="60" rows="10" maxlength="250" placeholder="Digite aqui seu comentário"></textarea>
+
+                    <div class="modal3">
+    
+                        <button id="enviarPost" onclick="enviarComment()"><span>Comentar</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modalA model">
+            <div class="modal2">
+                <span>Responder Comentario</span>
+                <div class="cad">
+                    <textarea id="textanswer" cols="60" rows="10" maxlength="250" placeholder="Digite aqui seu comentário"></textarea>
+
+                    <div class="modal3">
+    
+                        <button id="enviarPost" onclick="enviarAnswer()"><span>Responder</span></button>
+                    </div>
                 </div>
             </div>
         </div>

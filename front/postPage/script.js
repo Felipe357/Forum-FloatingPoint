@@ -2,6 +2,8 @@ const user = localStorage.getItem('user')
 
 document.querySelector(".user").querySelector("span").innerHTML = user
 
+var contAnswer = 0
+
 var id
 function showComment(e) {
 
@@ -76,6 +78,7 @@ function carregarPost() {
                 post.querySelector("#nome").innerHTML = e.usuario
                 post.querySelector("#data").innerHTML = dataFormatada
 
+
                 var tag = {
                     "idPost": e.id
                 }
@@ -100,6 +103,7 @@ function carregarPost() {
 
                 const options3 = { method: 'GET' };
 
+
                 fetch('http://localhost:5000/forum/post/' + e.id, options3)
                     .then(response => response.json())
                     .then(com => {
@@ -118,7 +122,10 @@ function carregarPost() {
                                 dados.querySelector(".respostaComment").innerHTML = c.resposta
                                 dados.querySelector(".dataComment").innerHTML = df
 
+                                contAnswer = com.comments.length
+
                                 if (c.answerComments !== undefined) {
+
 
                                     var da = new Date(c.answerComments.dataComment)
                                     let daf = da.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
@@ -130,6 +137,9 @@ function carregarPost() {
                                     answer.querySelector(".respostaAnswer").innerHTML = c.answerComments.resposta
                                     answer.querySelector(".dataAnswer").innerHTML = daf
 
+                                } else {
+                                    let cadAnswer = dados.querySelector(".cadAnswer")
+                                    cadAnswer.classList.remove("model")
                                 }
 
 
@@ -142,8 +152,9 @@ function carregarPost() {
                     })
 
                 document.querySelector(".posts").appendChild(post)
-
+                    
             })
+            console.log(contAnswer);
         })
 
 }
@@ -156,9 +167,17 @@ function carregarTags() {
         .then(tag => {
             tag.forEach(t => {
                 var tag = document.createElement("span")
+                tag.setAttribute("onclick", "filtrarPost(this)")
                 tag.innerHTML = t.tag
+                tag.id = "semCor"
 
                 document.querySelector(".tag").appendChild(tag)
+
+                var tags = document.createElement("option")
+                tags.value = t.tag
+                tags.innerHTML = t.tag
+
+                document.querySelector("#tagsPost").appendChild(tags)
             })
         })
 }
@@ -176,6 +195,38 @@ function filtrarTags() {
             x[i].style.display = "flex";
         }
     }
+}
+
+function filtrarPost(e) {
+
+    document.querySelector(".tag").querySelectorAll("span").forEach((g) => {
+        if (g.id === "corSpan") {
+            console.log(g);
+            g.id = "semCor"
+        }
+    })
+
+    console.log(e);
+    e.id = "corSpan"
+    var posts = document.querySelectorAll(".post")
+
+    posts.forEach(p => {
+
+        if (p.id !== "teste") {
+            let tag = p.querySelectorAll(".postTag")
+
+            tag.forEach(t => {
+                if (t.querySelector("span").innerHTML === e.innerHTML || e.innerHTML === "Todos") {
+                    p.classList.remove("model")
+                } else {
+                    t.querySelector("span").style.color = "#000"
+                    p.classList.add("model")
+                }
+            })
+        }
+
+    })
+
 }
 
 function carregaComment(e) {
@@ -219,19 +270,29 @@ function esconderComment(e) {
 
 }
 
-function cadPost(e) {
-
-    document.querySelector(".modal").classList.remove("model")
+function cadPost() {
+    document.querySelector(".modalP").classList.remove("model")
 }
+
 
 function enviarPost() {
 
     var text = document.querySelector(".cad").querySelector("textarea").value
 
     var at = new Date()
-    var fat = at.getFullYear() + "/" + at.getMonth() + "/" + at.getDay()
 
-    console.log(text);
+    var fat = at.getFullYear() + "/" + at.getMonth() + "/" + at.getDate()
+
+    var tag = document.querySelector("#tagsPost")
+    var opcaoValor = tag.options[tag.selectedIndex].value;
+
+    var po = document.querySelectorAll(".post")
+
+    po.forEach((p, index) => {
+        if (index == 1) {
+            po = parseInt(p.id) + 1
+        }
+    })
 
     if (text.length < 10) {
         window.alert("Não realiza gracejos em")
@@ -248,7 +309,91 @@ function enviarPost() {
 
         fetch('http://localhost:5000/forum/cadastrarPost', options)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => {
+                if (response !== null) {
+                    const options2 = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            "tag": opcaoValor,
+                            "idPost": po
+                        })
+                    };
+
+                    fetch('http://localhost:5000/forum/postsTag', options2)
+                        .then(resp => resp.json())
+                        .then(res => {
+                            if (res !== null) {
+                                window.location.reload()
+                            }
+                        })
+                }
+            })
     }
 
+}
+
+var postIdCom
+
+function cadComment(e) {
+    postIdCom = parseInt(e.id)
+    document.querySelector(".modalC").classList.remove("model")
+}
+
+function enviarComment() {
+
+    var textCom = document.querySelector("#textComment").value
+    var at = new Date()
+
+    var fat = at.getFullYear() + "/" + at.getMonth() + "/" + at.getDate()
+
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            "idPost": postIdCom,
+            "resposta": textCom,
+            "usuario": user,
+            "data": fat
+        })
+    };
+
+    fetch('http://localhost:5000/forum/comment', options)
+        .then(response => response.json())
+        .then(response => {
+            if (response !== null) {
+                window.location.reload()
+            }
+        })
+}
+
+function showAnswer() {
+    document.querySelector(".modalA").classList.remove("model")
+}
+
+function enviarAnswer() {
+
+    var textCom = document.querySelector("#textanswer").value
+    var at = new Date()
+
+    var fat = at.getFullYear() + "/" + at.getMonth() + "/" + at.getDate()
+
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            "idComment": contAnswer,
+            "resposta": textCom,
+            "usuario": user,
+            "data": fat
+        })
+    };
+
+    fetch('http://localhost:5000/forum/answerComment', options)
+        .then(response => response.json())
+        .then(response => {
+            if (response !== null) {
+                window.location.reload()
+            }
+        })
 }
