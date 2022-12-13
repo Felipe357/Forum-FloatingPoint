@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TagCom from "../components/tagCom";
 
-export default function App() {
+export default function App({ navigation }) {
 
   const [selectedValue, setSelectedValue] = useState("");
   const [duvida, setDuvida] = useState("")
@@ -16,35 +16,40 @@ export default function App() {
 
   const [tag, setTag] = useState([])
 
-
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('User')
-      const value2 = await AsyncStorage.getItem('PostId')
-      if (value !== null && value2 !== null) {
-        setUser(value)
-        setIdPost(value2)
-      }
-    } catch (e) {
-
+  useEffect(() => {
+    function carregarTag() {
+      const options = { method: 'GET' };
+  
+      fetch('http://localhost:5000/forum/tag', options)
+        .then(response => response.json())
+        .then(resp => {
+          setTag(resp)
+        })
     }
-  }
 
+    var resp
+    const getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('Info')
+        const value2 = await AsyncStorage.getItem('PostId')
+        resp = JSON.parse(value)
+        console.log(resp[0])
+        if (value !== null && value2 !== null) {
+          setUser(resp[0])
+          setIdPost(value2)
+        }
+      } catch (e) {
+  
+      }
+    }
+  
+    setTimeout(() => {
+      carregarTag()
+      getData()
+    }, 500)
+  }, [])
 
-  function carregarTag() {
-    const options = { method: 'GET' };
-
-    fetch('http://localhost:5000/forum/tag', options)
-      .then(response => response.json())
-      .then(resp => {
-        setTag(resp)
-      })
-  }
-
-  setTimeout(() => {
-    carregarTag()
-    getData()
-  }, 500)
+  
 
   function cadastrar() {
 
@@ -79,7 +84,7 @@ export default function App() {
             .then(response => response.json())
             .then(resp => {
               if (resp !== null) {
-                window.location.reload()
+                navigation.jumpTo('Feed');
               }
             })
         }

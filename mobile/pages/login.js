@@ -12,10 +12,13 @@ export default function telaLogin({ navigation }) {
     const [usuario, setUsuario] = useState("")
     const [senha, setSenha] = useState("")
     const [at, setAt] = useState(false)
+    const [info] = useState([])
 
     const storeData = async () => {
+        
+        info.push( usuario)
         try {
-          await AsyncStorage.setItem('User', usuario)
+          await AsyncStorage.setItem('Info', JSON.stringify(info))
         } catch (e) {
           // saving error
         }

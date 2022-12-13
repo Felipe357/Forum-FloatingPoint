@@ -11,19 +11,18 @@ export default function telaHome({ navigation }) {
 
     const [user, setUser] = useState("")
 
+    var resp
     const getData = async () => {
         try {
-          const value = await AsyncStorage.getItem('User')
+          const value = await AsyncStorage.getItem('Info')
+          resp = JSON.parse(value)
           if (value !== null) {
-            setUser(value)
+            setUser(resp[0])
           }
         } catch (e) {
     
         }
       }
-
-        
-      
 
       setTimeout(() => {
         getData()
@@ -33,7 +32,10 @@ export default function telaHome({ navigation }) {
     return (
         <View style={styles.v}>
             <Text style={styles.user}>{user}</Text>
-            <TouchableOpacity style={styles.btn} onPress={() => {navigation.navigate("Login")}}><Text style={styles.text}>Voltar para o Lobby</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.btn} onPress={() => {navigation.reset({
+                index: 0,
+                routes: [{name: 'Login'}]
+            })}}><Text style={styles.text}>Voltar para o Lobby</Text></TouchableOpacity>
         </View>
     )
 }
