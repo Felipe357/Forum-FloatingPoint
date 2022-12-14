@@ -1,17 +1,39 @@
+import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
-
-
 export default function Chamado(props) {
-    const { resp, user, data } = props;
-    
+    const { resp, user, data, id } = props;
+    const [PostId, setPostId] = useState("")
+
+    useEffect(() => {
+
+        console.log(id);
+        const options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "idPost": id
+            })
+          };
+          
+          fetch('http://localhost:5000/forum/readTag', options)
+            .then(response => response.json())
+            .then(response => {
+                if (response !== null) {
+                    setPostId(response[0].tag)
+                    console.log(response[0].tag);
+                }
+            })
+
+    }, [])
+
     return (
         <View style={styles.post}>
             <View style={styles.postinfo}>
                 <Text style={styles.postMessage}>{resp}</Text>
             </View>
             <View style={styles.postinfo2}>
-                <Text style={styles.postTag}>Javascript</Text>
+                <Text style={styles.postTag}>{PostId}</Text>
                 <View style={styles.infoUser}>
                     <Text style={styles.infoUserNome}>{user}</Text>
                     <Text style={styles.infoUserData}>{data}</Text>

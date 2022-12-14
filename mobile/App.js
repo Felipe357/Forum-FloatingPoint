@@ -11,6 +11,8 @@ import CPosts from './pages/CadastrarPost';
 import Postagens from './pages/postagens';
 import Profile from './pages/profile'
 import Comentarios from './pages/Comentarios'
+import CadastraComment from './pages/CadastrarComentario'
+import CadastraAnswer from './pages/CadastrarAnswer'
 
 const Stack = createNativeStackNavigator();
 
@@ -62,9 +64,11 @@ export default function App() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Login" component={telaLogin} options={{ headerShown: false }}/>
-        <Stack.Screen name="Post" component={TelaPost} /> */}
+        <Stack.Screen name="Login" component={telaLogin} options={{ headerShown: false }}/>
+        <Stack.Screen name="Post" component={TelaPost} options={{ headerShown: false }}/>
         <Stack.Screen name="Comentarios" component={Comentarios} />
+        <Stack.Screen name="Cadastro" component={CadastraComment} />
+        <Stack.Screen name="Answer" component={CadastraAnswer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

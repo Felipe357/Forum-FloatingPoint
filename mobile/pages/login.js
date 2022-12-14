@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-web';
 import { useState } from 'react';
 
@@ -15,26 +15,26 @@ export default function telaLogin({ navigation }) {
     const [info] = useState([])
 
     const storeData = async () => {
-        
-        info.push( usuario)
+
+        info.push(usuario)
         try {
-          await AsyncStorage.setItem('Info', JSON.stringify(info))
+            await AsyncStorage.setItem('Info', JSON.stringify(info))
         } catch (e) {
-          // saving error
+            // saving error
         }
-      }
+    }
 
     const verificar = () => {
         const options = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "usuario": usuario,
                 "senha": btoa(senha)
             })
-          };
-          
-          fetch('http://localhost:5000/forum/validauser', options)
+        };
+
+        fetch('http://localhost:5000/forum/validauser', options)
             .then(response => response.json())
             .then(response => {
                 if (response.autoriza === true) {
@@ -51,8 +51,8 @@ export default function telaLogin({ navigation }) {
                 style={styles.Logo}
                 source={img} />
 
-            <TextInput style={{... styles.inp1, borderBottomWidth: at ? 4 : 2,borderColor: at ? "red" : "#7242F5" }} placeholder="Usuario" onChangeText={(usuario) => { setUsuario(usuario)}} />
-            <TextInput secureTextEntry={true} style={styles.inp2} placeholder="Senha" onChangeText={(senha) => { setSenha(senha)}} />
+            <TextInput style={{ ...styles.inp1, borderBottomWidth: at ? 4 : 2, borderColor: at ? "red" : "#7242F5" }} placeholder="Usuario" onChangeText={(usuario) => { setUsuario(usuario) }} />
+            <TextInput secureTextEntry={true} style={styles.inp2} placeholder="Senha" onChangeText={(senha) => { setSenha(senha) }} />
 
             <TouchableOpacity style={styles.btn} onPress={verificar}><Text style={styles.t}>Login</Text></TouchableOpacity>
 

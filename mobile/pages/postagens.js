@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PostComponent from '../components/postCom'
 
-export default function telaHome() {
+export default function telaHome({ navigation }) {
 
     const [posts, setPosts] = useState([])
 
@@ -21,23 +21,20 @@ export default function telaHome() {
                 .then(resp => {
                     setPosts(resp)
                 })
-
-
-        }
-
-        const storeData = async () => {
-            try {
-                await AsyncStorage.setItem('PostId', posts.length + 1)
-            } catch (e) {
-                // saving error
-            }
         }
 
         setTimeout(() => {
             carregarPost()
-            storeData()
         }, 500)
     }, [])
+
+    const storeData = async (s) => {
+        try {
+            await AsyncStorage.setItem('PostId', s)
+        } catch (e) {
+            // saving error
+        }
+    }
 
     return (
         <View style={styles.v}>
@@ -45,10 +42,13 @@ export default function telaHome() {
             <ScrollView style={styles.sv}>
                 {
                     posts.map((e, index) => {
+                        storeData(index+2)
                         var date = new Date(e.data)
                         var dt = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
                         return (
-                            <PostComponent key={index} user={e.usuario} resp={e.duvida} data={dt} ></PostComponent>
+                            <TouchableOpacity key={index} onPress={() => {navigation.navigate("Comentarios", {idPost:e.id})}}>
+                                <PostComponent user={e.usuario} resp={e.duvida} data={dt} id={e.id}></PostComponent>
+                            </TouchableOpacity>
                         )
                     })
                 }

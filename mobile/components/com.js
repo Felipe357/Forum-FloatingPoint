@@ -1,23 +1,47 @@
 import { Text, View } from 'react-native';
+import ComAnswer from "./answer"
 
 export default function Chamado(props) {
-    const { resp, user, data, tag } = props;
+    const { resp, user, data, answer, nav } = props;
+
+    function answerC() {
+        if (answer !== undefined) {
+            var date = new Date(answer.dataComment)
+            var df = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+            return (
+                <ComAnswer user={answer.usuarioComment} respAnswer={answer.resposta} data={df} ></ComAnswer>
+            )
+        } else {
+            return(
+                <View style={styles.answer}>
+                    <TouchableOpacity onPress={nav}><Text style={styles.textAnswer}>Responder</Text></TouchableOpacity>
+                </View>
+            )
+        }
+    }
 
     return (
-        <View style={styles.cardComentario}>
-            <View style={styles.cardCima}>
-                <Text style={styles.postMessage}>Isso é aquilo outro</Text>
+        <View>
+            <View style={styles.cardComentario}>
+                <View style={styles.cardCima}>
+                    <Text style={styles.postMessage}>{resp}</Text>
+                </View>
+                <View style={styles.cardBaixo} >
+                    <Text style={styles.infoUserNome} >{user}</Text>
+                    <Text style={styles.infoUserData} >{data}</Text>
+                </View>
             </View>
-            <View style={styles.cardBaixo} >
-                <Text style={styles.infoUserNome} >Felipao</Text>
-                <Text style={styles.infoUserData} >24/12/1980</Text>
-            </View>
+
+            {
+                answerC()
+            }
         </View>
 
     )
 }
 
 import { StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
     cardComentario: {
@@ -31,6 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         marginTop: '20px',
+        marginBottom: "20px"
     },
     cardCima: {
         width: "100%",
@@ -68,5 +93,21 @@ const styles = StyleSheet.create({
     infoUserData: {
         fontWeight: "500"
     },
-
+    answer: {
+        height: "40px",
+        width: "60%",
+        backgroundColor: "#3b3ee3",
+        borderRadius: "3px",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: "center",
+        marginTop: '5px',
+        marginLeft: "30px"
+    },
+    textAnswer: {
+        color: "#fff",
+        letterSpacing: "2px",
+        fontSize: "13pt",
+        fontWeight: "700"
+    },
 });

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginTop: '20px',
+        marginTop: '5px',
         marginLeft: "30px"
     },
     cardCima: {

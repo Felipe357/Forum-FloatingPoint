@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { TextInput } from 'react-native-web';
-import { useState, useEffect, useMemo } from 'react';
-import { set } from 'react-native-reanimated';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { useState } from 'react';
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

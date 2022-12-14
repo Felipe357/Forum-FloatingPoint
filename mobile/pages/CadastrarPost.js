@@ -12,7 +12,7 @@ export default function App({ navigation }) {
   const [selectedValue, setSelectedValue] = useState("");
   const [duvida, setDuvida] = useState("")
   const [user, setUser] = useState("")
-  const [idPost, setIdPost] = useState()
+  const [idPost, setIdPost] = useState(0)
 
   const [tag, setTag] = useState([])
 
@@ -33,10 +33,10 @@ export default function App({ navigation }) {
         const value = await AsyncStorage.getItem('Info')
         const value2 = await AsyncStorage.getItem('PostId')
         resp = JSON.parse(value)
-        console.log(resp[0])
+        console.log(parseInt(value2))
         if (value !== null && value2 !== null) {
           setUser(resp[0])
-          setIdPost(value2)
+          setIdPost(parseInt(value2))
         }
       } catch (e) {
   
@@ -48,6 +48,10 @@ export default function App({ navigation }) {
       getData()
     }, 500)
   }, [])
+
+  useEffect(() => {
+    console.log(idPost)
+  }, [idPost])
 
   
 
@@ -84,6 +88,7 @@ export default function App({ navigation }) {
             .then(response => response.json())
             .then(resp => {
               if (resp !== null) {
+                console.log(resp);
                 navigation.jumpTo('Feed');
               }
             })
