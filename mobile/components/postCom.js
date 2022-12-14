@@ -25,7 +25,7 @@ export default function Chamado(props) {
                 }
             })
 
-    }, [])
+    }, [id])
 
     return (
         <View style={styles.post}>

@@ -123,6 +123,8 @@ function carregarPost() {
                                 dados.querySelector(".dataComment").innerHTML = df
 
                                 contAnswer = com.comments.length
+                                console.log(c.idComment)
+                                
 
                                 if (c.answerComments !== undefined) {
 
@@ -140,6 +142,7 @@ function carregarPost() {
                                 } else {
                                     let cadAnswer = dados.querySelector(".cadAnswer")
                                     cadAnswer.classList.remove("model")
+                                    cadAnswer.querySelector("button").setAttribute("onclick", "showAnswer("+c.idComment+")")
                                 }
 
 
@@ -154,7 +157,6 @@ function carregarPost() {
                 document.querySelector(".posts").appendChild(post)
                     
             })
-            console.log(contAnswer);
         })
 
 }
@@ -367,8 +369,11 @@ function enviarComment() {
         })
 }
 
-function showAnswer() {
+var idAnswer
+
+function showAnswer(c) {
     document.querySelector(".modalA").classList.remove("model")
+    idAnswer = c
 }
 
 function enviarAnswer() {
@@ -382,7 +387,7 @@ function enviarAnswer() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "idComment": contAnswer,
+            "idComment": idAnswer,
             "resposta": textCom,
             "usuario": user,
             "data": fat

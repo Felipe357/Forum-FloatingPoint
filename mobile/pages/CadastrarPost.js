@@ -47,11 +47,11 @@ export default function App({ navigation }) {
       carregarTag()
       getData()
     }, 500)
-  }, [])
+  }, [idPost])
 
   useEffect(() => {
     console.log(idPost)
-  }, [idPost])
+  }, [tag])
 
   
 

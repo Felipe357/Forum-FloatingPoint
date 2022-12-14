@@ -26,7 +26,7 @@ export default function telaHome({ navigation }) {
         setTimeout(() => {
             carregarPost()
         }, 500)
-    }, [])
+    }, [posts])
 
     const storeData = async (s) => {
         try {
